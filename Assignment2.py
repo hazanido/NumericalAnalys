@@ -317,3 +317,143 @@ def CheckGaussSeidelGnorm(matrix):
 def InitVector(size):
     return [0 for index in range(size)]
 
+def CopyVector(vector):
+    copy = []
+    for i in range(len(vector)):
+        copy.append(vector[i])
+
+    return copy
+
+
+def JacobiMethod(matrix, vector, epsilon, previous, counter):
+    """
+    Function for solving a set of equations according to the Jacobi method
+    :param matrix: Matrix nxn
+    :param vector: Vector n
+    :param epsilon: Stop Conditions
+    :param previous: Result vector
+    :param counter: Number of iterations
+    """
+
+    NextGuess = []
+    for i in range(len(matrix)):
+        ins = 0
+        for j in range(len(matrix)):
+            if i != j:
+                # Insulating variables
+                ins = ins + matrix[i][j]*previous[j]
+        # Calculate the next iteration
+        newGuess = 1/matrix[i][i]*(vector[i]-ins)
+        # Result vector insertion
+        NextGuess.append(newGuess)
+
+    # Result vector insertion
+    print("Iteration no. "+str(counter)+" " +str(NextGuess))
+
+    # Check stop conditions
+    for i in range(len(matrix)):
+        if abs(NextGuess[i] - previous[i]) < epsilon:
+            return
+
+    # Recursive call
+    JacobiMethod(matrix, vector, epsilon,NextGuess,counter+1)
+
+
+def GaussSeidelMethod(matrix, vector, epsilon, previous, counter):
+    """
+     Function for solving a set of equations according to the GaussSeidel method
+     :param matrix: Matrix nxn
+     :param vector: Vector n
+     :param epsilon: Stop Conditions
+     :param previous: Result vector
+     :param counter: Number of iterations
+     """
+
+    NextGuess = []
+    ImprovedGuess = CopyVector(previous)
+    for i in range(len(matrix)):
+        ins = 0
+        for j in range(len(matrix)):
+            if i != j:
+                # Insulating variables
+                ins = ins + matrix[i][j]*ImprovedGuess[j]
+        newGuess = 1/matrix[i][i]*(vector[i]-ins)
+        # Using calculated results
+        ImprovedGuess[i] = newGuess
+        NextGuess.append(newGuess)
+
+    # Result vector insertion
+    print("Iteration no. "+str(counter)+" " +str(NextGuess))
+
+    # Check stop conditions
+    for i in range(len(matrix)):
+        if abs(NextGuess[i] - previous[i]) < epsilon:
+            return
+
+    # Recursive call
+    GaussSeidelMethod(matrix, vector, epsilon,NextGuess,counter+1)
+
+
+
+
+matrixA = [ [4,2, 0],[2, 10, 4], [0, 4, 5]]
+b = [2,6,5]
+epsilon=0.00001
+flag = True
+
+input=int(input("Which method do u wanna use to solve the matrix? \n\t1.Jacobi \n\t2.GaussSeidel\n"))
+while (flag):
+    if input == 1 :
+        flag = False
+        # Jacobi
+        if CheckDominantDiagonal(matrixA):
+            print("\nThere is a dominant diagonal.")
+            print("\n ~ JacobiMethod ~\n")
+            JacobiMethod(matrixA,b,epsilon,InitVector(len(b)),1)
+
+        else:
+            print("There isn't a dominant diagonal.")
+            print("We will try to find dominant diagonal.")
+            dominantFix = DominantDiagonalFix(matrixA)
+            PrintMatrix(dominantFix)
+            if dominantFix != matrixA:
+                print("Found a dominant diagonal.")
+                print("\n ~ JacobiMethod ~\n")
+                JacobiMethod(dominantFix,b,epsilon,InitVector(len(b)),1)
+            else:
+                print("didnt find a dominant diagonal.")
+                if CheckJacobiGnorm(matrixA):
+                    print("The matrix convergent.")
+                    print("\n ~ JacobiMethod ~\n")
+                    JacobiMethod(matrixA,b,epsilon,InitVector(len(b)),1)
+                else:
+                    print("The matrix isn't convergent.")
+    elif input == 2:
+        flag = False
+        # geuss
+        if CheckDominantDiagonal(matrixA):
+            print("\nThere is a dominant diagonal.")
+            print("\n ~ GaussSeidelMethod ~\n")
+            GaussSeidelMethod(matrixA,b,epsilon,InitVector(len(b)),1)
+        else:
+            print("There isn't a dominant diagonal.")
+            print("We will try to find dominant diagonal.")
+            dominantFix=DominantDiagonalFix(matrixA)
+            PrintMatrix(dominantFix)
+            if dominantFix != matrixA:
+                print("Found a dominant diagonal.")
+                print("\n ~ GaussSeidelMethod ~\n")
+                GaussSeidelMethod(dominantFix,b,epsilon,InitVector(len(b)),1)
+            else:
+                print("didnt find a dominant diagonal.")
+                if CheckGaussSeidelGnorm(matrixA):
+                    print("The matrix convergent.")
+                    print("\n ~ GaussSeidelMethod ~\n")
+                    GaussSeidelMethod(matrixA,b,epsilon,InitVector(len(b)),1)
+                else:
+                    print("The matrix isn't convergent.")
+
+
+    else:
+        print("Invalid input")
+        break
