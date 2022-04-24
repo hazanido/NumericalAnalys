@@ -3,7 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="3f8e23b4-6452-4298-a65e-6cf77875d04a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Assignment2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment2.py" afterDir="false" />
+=======
+<<<<<<< Updated upstream
+      <change beforePath="$PROJECT_DIR$/Assignment 2/GaussianZydel.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment 2/Jacobi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohan_1/Gaussian_Elimination.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gaussian_Elimination.py" afterDir="false" />
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
