@@ -4,13 +4,18 @@
     <list default="true" id="3f8e23b4-6452-4298-a65e-6cf77875d04a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment 2/GaussianZydel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment 2/GaussianZydel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bohan 1/Gaussian_Elimination.py" beforeDir="false" afterPath="$PROJECT_DIR$/Bohan_1/Gaussian_Elimination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lottery.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lottery.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,6 +48,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Assignment 2/GaussianZydel.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -66,7 +72,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650810211826</updated>
-      <workItem from="1650810215715" duration="328000" />
+      <workItem from="1650810215715" duration="482000" />
+      <workItem from="1650810900761" duration="600000" />
     </task>
     <servers />
   </component>
