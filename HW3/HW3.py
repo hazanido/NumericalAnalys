@@ -151,3 +151,94 @@ def SecantMethod(polynomial,firstGuess, secondGuess,epsilon, iterCounter):
 
     return SecantMethod(polynomial, secondGuess, next_guess, epsilon, iterCounter+1)
 
+
+def BisectionMethod(polynomial, startPoint, endPoint, epsilon, iterCounter):
+    """
+    the bisection method is a root-finding method that applies to any
+    continuous functions for which one knows two values with opposite signs
+    :param polynomial: The function on which the method is run
+    :param startPoint: Starting point of the range
+    :param endPoint: End point of the range
+    :param epsilon: The tolerance of the deviation of the solution
+    :param iterCounter: Counter of the number of iterations performed
+    :return: Roots of the equation found
+    """
+    roots = []
+    middle = (startPoint + endPoint) / 2
+
+    if iterCounter > EvaluateError(startPoint, endPoint):
+        print(bcolors.FAIL, "The Method isn't convergent.",bcolors.ENDC)
+        return roots
+
+    if (abs(endPoint-startPoint)) < epsilon:
+        print("after ", iterCounter, "iterations The root found is: ", bcolors.OKBLUE, round(middle, 6), bcolors.ENDC)
+        roots.append(round(middle, 6))
+        return roots
+
+    if polynomial(startPoint)*polynomial(middle) > 0:
+        roots += BisectionMethod(polynomial, middle, endPoint, epsilon, iterCounter+1)
+        return roots
+    else:
+        roots += BisectionMethod(polynomial, startPoint, middle, epsilon, iterCounter+1)
+        return roots
+
+
+def BisectionMethodSections(polynomial,Cheackrange,epsilon):
+    iterCounter = 0
+    result = []
+    for i in Cheackrange:
+        for sep in range(1, 10):
+            seperate = round(i + (sep * 0.1), 2)
+            next_seperate = round(seperate + 0.1, 2)
+            if polynomial(next_seperate) == 0:
+                print(bcolors.OKBLUE, "root in ", next_seperate, bcolors.ENDC)
+                result.append(next_seperate)
+            if (polynomial(seperate) * polynomial(next_seperate)) < 0:
+                result += BisectionMethod(polynomial, seperate, next_seperate, epsilon, iterCounter)
+
+    return result
+
+
+
+def MainFunction():
+
+    roots = []
+    x = sp.symbols('x')
+
+
+    def Polynomial(X):
+        return my_f.subs(x, X)
+
+    my_f_diff = lambda a: sp.diff(my_f, x).subs(x, a)
+
+    checkRange = range(-5, 6)
+    epsilon = 0.0001
+
+    print("Finding roots of the equation f(X) = X^4 + X^3 - 3X^2\n")
+    choice = int(input(
+        "Which method Which methods do you want? \n\t1.Bisection Method \n\t2.Newton Raphson\n\t3.Secant Method\n"))
+    if choice == 1:
+        print(bcolors.OKGREEN, " ~~ Odd multiplicity Roots ~~", bcolors.ENDC)
+        roots += BisectionMethodSections(Polynomial, checkRange, epsilon)
+
+        print(bcolors.OKGREEN, " ~~ Even multiplicity Roots ~~", bcolors.ENDC)
+        root = BisectionMethodSections(my_f_diff, checkRange, epsilon)
+        if Polynomial(root) == 0:
+            roots += root
+        else:
+            print(bcolors.FAIL, " Not the root of the equation ", bcolors.ENDC)
+    elif choice == 2:
+        roots += NewtonsMethodInRangeIterations(my_f, checkRange, 10,0.000001)
+    elif choice == 3:
+        roots += SecantMethodInRangeIterations(Polynomial,checkRange,0.0000001)
+    else:
+        print(bcolors.FAIL, "Invalid input", bcolors.ENDC)
+        return
+
+    print("\nThere are ", bcolors.OKBLUE, len(roots), "roots: ", roots, bcolors.ENDC)
+
+
+#if you want to try other functions please change here my_f
+my_f = x ** 4 + x ** 3 - 3 * x ** 2
+
+MainFunction()
