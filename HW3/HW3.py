@@ -206,6 +206,14 @@ def MainFunction():
     x = sp.symbols('x')
 
 
+
+#if you want to try other functions please change here my_f
+
+    my_f = x ** 4 + x ** 3 - 3 * x ** 2
+    ##my_f = x**2-4*x
+    #my_f = x**3-sp.cos(x)
+
+
     def Polynomial(X):
         return my_f.subs(x, X)
 
@@ -236,9 +244,5 @@ def MainFunction():
         return
 
     print("\nThere are ", bcolors.OKBLUE, len(roots), "roots: ", roots, bcolors.ENDC)
-
-
-#if you want to try other functions please change here my_f
-my_f = x ** 4 + x ** 3 - 3 * x ** 2
 
 MainFunction()
