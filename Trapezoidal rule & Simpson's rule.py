@@ -21,7 +21,7 @@ def main():
     print(f'FUNCTION: {F.__name__}\n')
     # Calculate integrals
     step = (B - A) / N
-    for method in (rectangle_method, trapezoid_method, simpson_method):
+    for method in (trapezoid_method, simpson_method):
         total_sum = 0
         for i in np.arange(A, B, step):
             ai, bi = i, i + step
@@ -42,11 +42,6 @@ def rename(newname):
     return decorator
 
 
-@rename('Rectangle method')
-def rectangle_method(a, b, func):
-    return abs(func((a + b) / 2) * (b - a))
-
-
 @rename('Trapezoid method')
 def trapezoid_method(a, b, func):
     return abs((b-a) * (func(a) + func(b)) / 2)
@@ -58,9 +53,7 @@ def simpson_method(a, b, func):
 
 
 def theoretical_error_estimation(m, h, a, b, type_):
-    if type_ == 'Rectangle method':
-        return m * (h ** 2) * (b - a) / 24
-    elif type_ == 'Trapezoid method':
+    if type_ == 'Trapezoid method':
         return m * (h ** 2) * (b - a) / 12
     elif type_ == 'Simpson method':
         return m * (h ** 2) * (b - a) / 2880
